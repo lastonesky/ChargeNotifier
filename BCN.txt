@@ -1,2 +1,2 @@
-password:123456
-Key Password:Aa123456
+Key store password:123456
+Key Password: Aa123456
