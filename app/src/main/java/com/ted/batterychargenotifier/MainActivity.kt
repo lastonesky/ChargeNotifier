@@ -3,7 +3,9 @@ package com.ted.batterychargenotifier
 import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -19,6 +21,7 @@ import android.view.MenuItem
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.navigation.fragment.NavHostFragment
 import com.ted.batterychargenotifier.databinding.ActivityMainBinding
 import java.io.Console
 
@@ -36,7 +39,8 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
         createNotificationChannel()
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main) as NavHostFragment
+        val navController = navHostFragment.navController
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
@@ -45,6 +49,7 @@ class MainActivity : AppCompatActivity() {
                     .setAction("Action", null).show()
         }
         createNotification(this)
+
     }
 
     override fun onStop() {
@@ -74,6 +79,11 @@ class MainActivity : AppCompatActivity() {
                 || super.onSupportNavigateUp()
     }
     fun createNotification(context: Context): Boolean    {
+        var intent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        var pendingIntent:PendingIntent = PendingIntent.getActivity(this, 0,intent,
+            PendingIntent.FLAG_IMMUTABLE)
         var builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentTitle("充电通知")
@@ -81,8 +91,10 @@ class MainActivity : AppCompatActivity() {
             .setStyle(NotificationCompat.BigTextStyle()
                 .bigText("本App仅用于提醒电量变化"))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
 
-            if (ActivityCompat.checkSelfPermission(
+        if (ActivityCompat.checkSelfPermission(
                     this,
                     Manifest.permission.POST_NOTIFICATIONS
                 ) != PackageManager.PERMISSION_GRANTED

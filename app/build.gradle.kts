@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "com.ted.batterychargenotifier"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.ted.batterychargenotifier"
         minSdk = 28
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
