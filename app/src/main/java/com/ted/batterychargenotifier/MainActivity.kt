@@ -25,8 +25,8 @@ import com.ted.batterychargenotifier.databinding.ActivityMainBinding
 import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
-
-    private val channelId = "ChargeNotify"
+    val PREFS_NAME = "BatteryPrefs"
+    val channelId = "ChargeNotify"
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
