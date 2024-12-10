@@ -1,0 +1,61 @@
+# Android Studio-specific files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Gradle-specific files
+.gradle/
+build/
+**/build/
+.gradle/
+local.properties
+
+# Log files
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Dependency directories
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/caches/
+/.idea/modules/
+/.idea/libraries/
+/.idea/.name
+*.sublime-workspace
+*.sublime-project
+*.suo
+*.ntvs
+*.njsproj
+*.sln
+*.sw?
+
+# Keystore files (if any)
+*.jks
+
+# Files that might be generated at runtime
+captures/
+output.json
+output-metadata.json
+.crash/
+.externalNativeBuild/
+*.class
+
+# Misc
+*.bak
+*.old
+
+# Exclude generated files
+.cxx/
+*.apk
+*.aar
+*.hprof
+
+# Local environment configuration
+local.properties
