@@ -12,6 +12,9 @@ class BatteryLevelReceiver : BroadcastReceiver() {
     private val channelId = MainActivity().channelId
 
     override fun onReceive(context: Context, intent: Intent) {
+        if(intent.action == Intent.ACTION_POWER_CONNECTED){
+            sendNotification(context, "Start Change");
+        }
         if (intent.action == Intent.ACTION_BATTERY_CHANGED) {
             val level = intent.getIntExtra(android.os.BatteryManager.EXTRA_LEVEL, -1)
             val scale = intent.getIntExtra(android.os.BatteryManager.EXTRA_SCALE, -1)
