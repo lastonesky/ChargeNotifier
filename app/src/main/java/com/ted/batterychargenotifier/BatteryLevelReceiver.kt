@@ -18,8 +18,8 @@ class BatteryLevelReceiver : BroadcastReceiver() {
             val batteryPct = level / scale.toFloat() * 100
 
             val settings = context.getSharedPreferences(MainActivity().PREFS_NAME, Context.MODE_PRIVATE)
-            val thresholdStr = settings.getString("threshold", "")
-            val message = settings.getString("message", "")
+            val thresholdStr = settings.getString("threshold", "80")
+            val message = settings.getString("message", "充电完成80%，请注意")
 
             thresholdStr?.let {
                 try {

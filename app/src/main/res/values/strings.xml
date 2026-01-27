@@ -11,4 +11,8 @@
     <string name="lorem_ipsum">
         充电通知
     </string>
+    <string name="todo">TODO</string>
+    <string name="save_settings">Save Settings</string>
+    <string name="enter_threshold_percentage_0_100">Enter threshold percentage (0-100)</string>
+    <string name="enter_custom_notification_message">Enter custom notification message</string>
 </resources>

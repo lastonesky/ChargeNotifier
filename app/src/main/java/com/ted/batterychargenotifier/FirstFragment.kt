@@ -1,5 +1,7 @@
 package com.ted.batterychargenotifier
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,7 +16,7 @@ import com.ted.batterychargenotifier.databinding.FragmentFirstBinding
 class FirstFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
-
+    private val PREFS_NAME = "BatteryPrefs"
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -22,7 +24,7 @@ class FirstFragment : Fragment() {
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
@@ -31,12 +33,25 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        loadSettings()
 
-        binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        binding.btnSave.setOnClickListener {
+            saveSettings()
+        }
+    }
+    private fun saveSettings() {
+        with(requireActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()) {
+            putString("threshold", binding.etThreshold.text.toString())
+            putString("message", binding.etMessage.text.toString())
+            apply()
         }
     }
 
+    private fun loadSettings() {
+        val settings: SharedPreferences = requireActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        binding.etThreshold.setText(settings.getString("threshold", ""))
+        binding.etMessage.setText(settings.getString("message", ""))
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
