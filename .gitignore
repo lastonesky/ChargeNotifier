@@ -1,15 +1,15 @@
 # Android Studio-specific files
 .idea/
+**/.idea/
 *.iml
 *.ipr
 *.iws
 
 # Gradle-specific files
 .gradle/
+**/.gradle/
 build/
 **/build/
-.gradle/
-local.properties
 
 # Log files
 *.log
@@ -21,13 +21,7 @@ ehthumbs.db
 Desktop.ini
 
 # Dependency directories
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/caches/
-/.idea/modules/
-/.idea/libraries/
-/.idea/.name
+out/
 *.sublime-workspace
 *.sublime-project
 *.suo
@@ -38,6 +32,7 @@ Desktop.ini
 
 # Keystore files (if any)
 *.jks
+*.keystore
 
 # Files that might be generated at runtime
 captures/
@@ -53,9 +48,14 @@ output-metadata.json
 
 # Exclude generated files
 .cxx/
+.kotlin/
 *.apk
 *.aar
 *.hprof
+*.aab
+*.ap_
+*.dex
+*.pyc
 
 # Local environment configuration
 local.properties
