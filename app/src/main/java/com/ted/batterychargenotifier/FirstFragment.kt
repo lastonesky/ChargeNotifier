@@ -17,6 +17,9 @@ class FirstFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
     private val PREFS_NAME = "BatteryPrefs"
+    private val KEY_STARTUP_NOTIFY_ENABLED = "startup_notify_enabled"
+    private val KEY_MESSAGE = "message"
+    private val KEY_THRESHOLD = "threshold"
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -35,22 +38,28 @@ class FirstFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         loadSettings()
 
-        binding.btnSave.setOnClickListener {
-            saveSettings()
-        }
-    }
-    private fun saveSettings() {
-        with(requireActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()) {
-            putString("threshold", binding.etThreshold.text.toString())
-            putString("message", binding.etMessage.text.toString())
-            apply()
+        binding.btnSettings.setOnClickListener {
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
     }
 
     private fun loadSettings() {
         val settings: SharedPreferences = requireActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        binding.etThreshold.setText(settings.getString("threshold", ""))
-        binding.etMessage.setText(settings.getString("message", ""))
+        val startupNotifyEnabled = settings.getBoolean(KEY_STARTUP_NOTIFY_ENABLED, true)
+        val message = settings.getString(KEY_MESSAGE, "请注意电量") ?: "请注意电量"
+        val threshold = settings.getString(KEY_THRESHOLD, "80") ?: "80"
+
+        binding.tvStartupNotifyEnabled.text = getString(
+            R.string.startup_notify_enabled_value,
+            if (startupNotifyEnabled) getString(R.string.enabled) else getString(R.string.disabled)
+        )
+        binding.tvNotifyMessage.text = getString(R.string.notify_message_value, message)
+        binding.tvThreshold.text = getString(R.string.threshold_value, threshold)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadSettings()
     }
     override fun onDestroyView() {
         super.onDestroyView()

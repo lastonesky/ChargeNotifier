@@ -9,18 +9,22 @@ import androidx.core.app.NotificationCompat
 
 class BatteryLevelReceiver : BroadcastReceiver() {
 
-    private val channelId = MainActivity().channelId
+    private val channelId = MainActivity.CHANNEL_ID
 
     override fun onReceive(context: Context, intent: Intent) {
         if(intent.action == Intent.ACTION_POWER_CONNECTED){
-            sendNotification(context, "Start Change");
+            BatteryMonitorService.start(context)
+            sendNotification(context, "开始监控充电电量")
+        }
+        if(intent.action == Intent.ACTION_POWER_DISCONNECTED){
+            BatteryMonitorService.stop(context)
         }
         if (intent.action == Intent.ACTION_BATTERY_CHANGED) {
             val level = intent.getIntExtra(android.os.BatteryManager.EXTRA_LEVEL, -1)
             val scale = intent.getIntExtra(android.os.BatteryManager.EXTRA_SCALE, -1)
             val batteryPct = level / scale.toFloat() * 100
 
-            val settings = context.getSharedPreferences(MainActivity().PREFS_NAME, Context.MODE_PRIVATE)
+            val settings = context.getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE)
             val thresholdStr = settings.getString("threshold", "80")
             val message = settings.getString("message", "充电完成80%，请注意")
 
@@ -30,7 +34,7 @@ class BatteryLevelReceiver : BroadcastReceiver() {
                     if (batteryPct >= threshold) {
                         sendNotification(context, message ?: "")
                     }
-                } catch (e: NumberFormatException) {
+                } catch (_: NumberFormatException) {
                     // Handle non-numeric input
                 }
             }
@@ -40,7 +44,7 @@ class BatteryLevelReceiver : BroadcastReceiver() {
     private fun sendNotification(context: Context, message: String) {
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        val channel = NotificationChannel(channelId, "Battery Notifier", NotificationManager.IMPORTANCE_DEFAULT)
+        val channel = NotificationChannel(channelId, context.getString(R.string.channel_name), NotificationManager.IMPORTANCE_DEFAULT)
         notificationManager.createNotificationChannel(channel)
 
         val builder = NotificationCompat.Builder(context, channelId)

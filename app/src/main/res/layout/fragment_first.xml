@@ -10,43 +10,45 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp">
-        <Button
-            android:id="@+id/btnSave"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/save_settings"
-            app:layout_constraintBottom_toTopOf="@id/textview_first"
+
+        <ImageButton
+            android:id="@+id/btnSettings"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/open_settings"
+            android:src="@android:drawable/ic_menu_manage"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-        <EditText
-            android:id="@+id/etThreshold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:hint="@string/enter_threshold_percentage_0_100"
-            android:inputType="numberDecimal"
-            app:layout_constraintTop_toBottomOf="@id/btnSave" />
-
-        <EditText
-            android:id="@+id/etMessage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints=""
-            android:hint="@string/enter_custom_notification_message"
-            android:inputType="textMultiLine"
-            app:layout_constraintTop_toBottomOf="@id/etThreshold" />
         <TextView
-            android:id="@+id/textview_first"
-            android:layout_width="wrap_content"
+            android:id="@+id/tvStartupNotifyEnabled"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/lorem_ipsum"
+            android:text="@string/startup_notify_enabled_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnSettings" />
+
+        <TextView
+            android:id="@+id/tvNotifyMessage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/notify_message_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvStartupNotifyEnabled" />
+
+        <TextView
+            android:id="@+id/tvThreshold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/threshold_label"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etMessage" />
+            app:layout_constraintTop_toBottomOf="@id/tvNotifyMessage" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
