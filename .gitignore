@@ -56,6 +56,7 @@ output-metadata.json
 *.ap_
 *.dex
 *.pyc
+/app/release/
 
 # Local environment configuration
 local.properties
