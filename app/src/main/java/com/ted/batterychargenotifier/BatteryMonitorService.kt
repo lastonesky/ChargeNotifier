@@ -91,6 +91,7 @@ class BatteryMonitorService : Service() {
             .setContentText(message)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setAutoCancel(true)
+            .setTimeoutAfter(ALERT_NOTIFICATION_TIMEOUT_MS)
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.notify(ALERT_NOTIFICATION_ID, builder.build())
@@ -111,6 +112,7 @@ class BatteryMonitorService : Service() {
     companion object {
         private const val SERVICE_NOTIFICATION_ID = 1001
         private const val ALERT_NOTIFICATION_ID = 1
+        private const val ALERT_NOTIFICATION_TIMEOUT_MS = 5 * 60 * 1000L
 
         fun start(context: Context) {
             val intent = Intent(context, BatteryMonitorService::class.java)

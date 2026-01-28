@@ -10,6 +10,7 @@ import androidx.core.app.NotificationCompat
 class BatteryLevelReceiver : BroadcastReceiver() {
 
     private val channelId = MainActivity.CHANNEL_ID
+    private val notificationTimeoutMs = 5 * 60 * 1000L
 
     override fun onReceive(context: Context, intent: Intent) {
         if(intent.action == Intent.ACTION_POWER_CONNECTED){
@@ -52,6 +53,8 @@ class BatteryLevelReceiver : BroadcastReceiver() {
             .setContentTitle("Battery Level Reached")
             .setContentText(message)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setAutoCancel(true)
+            .setTimeoutAfter(notificationTimeoutMs)
 
         notificationManager.notify(1, builder.build())
     }

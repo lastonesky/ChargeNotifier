@@ -128,6 +128,7 @@ class MainActivity : AppCompatActivity() {
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
+            .setTimeoutAfter(5 * 60 * 1000L)
 
         if (ActivityCompat.checkSelfPermission(
                     this,
